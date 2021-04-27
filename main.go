@@ -29,6 +29,7 @@ var writeConfig = TablestoreConfig{
 	AkSecret: os.Getenv("write_sk"),
 }
 
+// TODO: 删除表结构时，如果有多元索引，需要先删除多元索引，才能删除表结构
 func delete(client *tablestore.TableStoreClient) {
 	list, err := client.ListTable()
 	log.Println("list: ", list, " err: ", err)
@@ -119,6 +120,23 @@ func createSearchIndex(readClient *tablestore.TableStoreClient, writeClient *tab
 		return
 	}
     log.Println("CreateSearchIndex finished, requestId:", resp.ResponseInfo.RequestId)
+}
+
+func deleteSearchIndex(client *tablestore.TableStoreClient, tableName string) {
+	request := &tablestore.ListSearchIndexRequest{}
+    request.TableName = tableName
+    resp, err := client.ListSearchIndex(request)
+    if err != nil {
+        log.Println("list " + tableName + " searchIndex error: ", err)
+        return
+    }
+    for _, info := range resp.IndexInfo {
+		request := &tablestore.DeleteSearchIndexRequest{}
+		request.IndexName = info.IndexName
+		request.TableName = tableName;
+		client.DeleteSearchIndex(request)
+    }
+    log.Println("list " + tableName + " search index finished, requestId:", resp.ResponseInfo.RequestId)
 }
 
 func main()  {
