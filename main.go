@@ -66,7 +66,7 @@ func copyTable(readClient *tablestore.TableStoreClient, writeClient *tablestore.
 		if err != nil {
 			log.Println("write client create table fail: ", err)
 		} else {
-			log.Println("write client create table success: ", res)
+			log.Println("write client create table" , tableName, " success: ", res)
 			copySearchIndex(readClient, writeClient, tableName)
 		}
 	} else {
