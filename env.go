@@ -14,22 +14,22 @@ type AkSk struct {
 }
 
 var ReadAkSk = AkSk{
-	AkID:     os.Getenv("read_ak"),
-	AkSecret: os.Getenv("read_ak"),
+	AkID:     "read_ak",
+	AkSecret: "read_sk",
 }
 
 var ReadStores = []TablestoreConfig{
 	{
-		Endpoint: os.Getenv("read_endpoint1"),
-		Instance: os.Getenv("read_instance1"),
+		Endpoint: "read_endpoint1",
+		Instance: "read_instance1",
 	},
 	{
-		Endpoint: os.Getenv("read_endpoint2"),
-		Instance: os.Getenv("read_instance2"),
+		Endpoint: "read_endpoint2",
+		Instance: "read_instance2",
 	},
 	{
-		Endpoint: os.Getenv("read_endpoint3"),
-		Instance: os.Getenv("read_instance3"),
+		Endpoint: "read_endpoint3",
+		Instance: "read_instance3",
 	},
 }
 
